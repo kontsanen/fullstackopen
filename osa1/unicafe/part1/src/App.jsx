@@ -9,11 +9,12 @@ const Button = ({handleClick, text}) => {
 
 const StatisticLine = (props) => {
   return (
-    <div>
-      <p>
-        {props.text} {props.value}
-      </p>
-    </div>
+    <>
+      <tr>
+        <td>{props.text}</td>
+        <td>{props.value}</td>
+      </tr>
+    </>
   )
 }
 
@@ -28,12 +29,14 @@ const Statistics = (props) => {
       {all > 0 ? (
         <div>
         <h1>statistics</h1>
+        <table><tbody>
           <StatisticLine text="good" value={props.good} />
           <StatisticLine text="neutral" value={props.neutral} />
           <StatisticLine text="bad" value={props.bad} />
           <StatisticLine text="all" value={all} />
           <StatisticLine text="average" value={avg} />
           <StatisticLine text="positive" value={pos} />
+        </tbody></table>
         </div>
        ) : (
         <p>No feedback given</p>
