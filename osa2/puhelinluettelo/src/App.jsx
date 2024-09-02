@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+
 
 const Filter = (props) => {
   return (
@@ -49,12 +51,34 @@ const Persons = (props) => {
 }
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
+
+  const [persons, setPersons] = useState([])
+
+
+  useEffect(() => {
+    axios
+    .get('http://localhost:3001/persons')
+    .then(response => {
+      const tiedot = response.data
+      console.log(tiedot.length)
+      console.log(tiedot)
+
+      let newPersons = tiedot.map(persoona => ({
+        name: persoona.name,
+        number: persoona.number,
+      }));
+
+      console.log(newPersons);
+    
+      setPersons([...persons, ...newPersons]);
+      console.log(newPersons);
+    })
+  }, []);
+
+
+
+
+
 
   const [searchValue, setNewSearchValue] = useState('')
   const [newName, setNewName] = useState('')
